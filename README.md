@@ -18,4 +18,4 @@ Event Landing Page / Concept Project
 
 ## Live Demo
 
-سيُضاف رابط النسخة الحية بعد النشر.
+https://uob-opening-event-saleh.albrghthy754.chatgpt.site
