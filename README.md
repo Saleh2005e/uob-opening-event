@@ -16,6 +16,8 @@ Event Landing Page / Concept Project
 
 استخدمت الصور التي وفرها مالك المشروع. هذه النسخة Concept Project لعرض أعمال الويب.
 
+شعار الجامعة المستخدم من [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:University_of_benghazi.png) بترخيص CC BY-SA 4.0.
+
 ## Live Demo
 
 https://uob-opening-event-saleh.albrghthy754.chatgpt.site

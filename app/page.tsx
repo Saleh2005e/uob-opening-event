@@ -1,68 +1,95 @@
 "use client";
 
-const highlights = [
-  ["01", "مرافق تعليمية متطورة", "مساحات صُممت لتدعم التعلم والبحث وتجربة جامعية أكثر رحابة."],
-  ["02", "بيئة تلتقي فيها الفكرة بالإنجاز", "من القاعات والمختبرات إلى المساحات المفتوحة، كل تفصيل يخدم مستقبلاً أكاديميًا أفضل."],
-  ["03", "جامعة تنظر إلى الأمام", "حرم جامعي متجدد يليق بطموح طلابه وأعضاء هيئة تدريسه."],
-];
-const moments = [
-  ["الاستقبال", "ترحيب بالضيوف في بهو كلية الهندسة."],
-  ["جولة الافتتاح", "استكشاف المرافق التعليمية والخدمية الجديدة."],
-  ["كلمات المناسبة", "رؤية الجامعة لمرحلة جديدة من المعرفة والتميز."],
-  ["اللقاء المفتوح", "مساحة تجمع الحضور والجامعة في يوم استثنائي."],
-];
+import { useState } from "react";
+
+const content = {
+  ar: {
+    dir: "rtl", brand: "جامعة بنغازي", unit: "الافتتاح الرسمي للمرافق الجديدة", language: "English",
+    overview: "نبذة", gallery: "المرافق", program: "برنامج المناسبة", action: "استكشف المرافق",
+    eyebrow: "جامعة بنغازي · 2026", hero: "الافتتاح الرسمي للمرافق الجديدة", heroText: "نحتفي بمرافق جامعية متجددة تجمع بين جودة البيئة التعليمية، ووضوح الرؤية، وطموح المستقبل.",
+    heroNote: "بيئة جامعية عصرية · مساحات معرفة · مستقبل واعد",
+    aboutTag: "نبذة عن المناسبة", aboutTitle: "خطوة جديدة في مسيرة الجامعة", aboutText: "تجسّد هذه المناسبة رؤية جامعة بنغازي لحرم جامعي حديث؛ أكثر جاهزية للتعليم والبحث، وأكثر قربًا من احتياجات طلابه وأعضاء هيئة تدريسه.",
+    values: [["مرافق متطورة", "قاعات ومختبرات ومساحات تعليمية تدعم تجربة أكاديمية متكاملة."], ["تصميم يركز على الإنسان", "تفاصيل عملية تهيئ بيئة مريحة للتعلم والعمل واللقاء."], ["رؤية للمستقبل", "حرم متجدد يواكب طموح الجامعة ومجتمعها العلمي."]],
+    galleryTag: "المرافق الجامعية", galleryTitle: "مباني حديثة، وتجربة جامعية متكاملة", galleryText: "من الواجهات المعمارية إلى المساحات الداخلية؛ تتكامل التفاصيل لتمنح الحرم هوية واضحة وبيئة ملهمة.",
+    captions: ["الردهة المركزية", "الحرم الجامعي مساءً", "ممرات حديثة", "الساحات الخارجية", "واجهات المرافق"],
+    programTag: "برنامج المناسبة", programTitle: "محطات الافتتاح", programText: "برنامج منظم يعرّف الحضور بالمرافق الجديدة وبالمرحلة القادمة من مسيرة الجامعة.",
+    moments: [["الاستقبال", "ترحيب بالضيوف والحضور في بهو المرافق الجديدة."], ["الجولة التعريفية", "استكشاف القاعات والخدمات والمساحات الجامعية."], ["كلمات المناسبة", "رؤية الجامعة للمرحلة الجديدة من المعرفة والتميز."], ["اللقاء المفتوح", "مساحة تواصل تجمع الجامعة بضيوفها ومجتمعها."]],
+    closing: "جامعة بنغازي", closingTitle: "نصنع بيئة تليق بطموح المعرفة.", footer: "جامعة بنغازي · الافتتاح الرسمي للمرافق الجديدة", logoCredit: "الشعار: Wikimedia Commons / Soaplover2 — CC BY-SA 4.0",
+  },
+  en: {
+    dir: "ltr", brand: "University of Benghazi", unit: "Official Opening of New Facilities", language: "العربية",
+    overview: "Overview", gallery: "Facilities", program: "Programme", action: "Explore facilities",
+    eyebrow: "University of Benghazi · 2026", hero: "Official Opening of the New Facilities", heroText: "Celebrating renewed university spaces that bring together a high-quality learning environment, a clear vision and an ambitious future.",
+    heroNote: "Modern campus · Knowledge spaces · A promising future",
+    aboutTag: "About the occasion", aboutTitle: "A new step in the university’s journey", aboutText: "This occasion reflects the University of Benghazi’s vision for a modern campus: better prepared for education and research, and closer to the needs of its students and faculty.",
+    values: [["Advanced facilities", "Learning, laboratory and shared spaces that support a complete academic experience."], ["Human-centred design", "Practical details that create a comfortable setting for study, work and connection."], ["A future-facing vision", "A renewed campus that matches the university’s academic ambition."]],
+    galleryTag: "Campus facilities", galleryTitle: "Modern buildings. A complete university experience.", galleryText: "From architectural facades to interior spaces, every detail contributes to a clear campus identity and an inspiring environment.",
+    captions: ["Central lounge", "Campus at night", "Modern corridors", "Outdoor plazas", "Facility facades"],
+    programTag: "Event programme", programTitle: "Opening highlights", programText: "A clear programme introducing the new facilities and the next chapter of the university’s journey.",
+    moments: [["Welcome reception", "Welcoming guests at the new facilities."], ["Guided tour", "Discovering the university’s learning, service and shared spaces."], ["Opening remarks", "The university’s vision for a new stage of knowledge and excellence."], ["Open gathering", "A moment of connection between the university, its guests and its community."]],
+    closing: "University of Benghazi", closingTitle: "Creating an environment worthy of ambitious learning.", footer: "University of Benghazi · Official Opening of New Facilities", logoCredit: "Logo: Wikimedia Commons / Soaplover2 — CC BY-SA 4.0",
+  },
+} as const;
 
 export default function Home() {
-  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const [locale, setLocale] = useState<"ar" | "en">("ar");
+  const t = content[locale];
+  const scroll = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const photos = [
+    ["/images/central-lounge.jpeg", t.captions[0], "md:col-span-7"],
+    ["/images/night-campus.jpeg", t.captions[1], "md:col-span-5"],
+    ["/images/main-corridor.jpeg", t.captions[2], "md:col-span-4"],
+    ["/images/campus-plaza.jpeg", t.captions[3], "md:col-span-4"],
+    ["/images/evening-facade.jpeg", t.captions[4], "md:col-span-4"],
+  ] as const;
+
   return (
-    <main dir="rtl" className="min-h-screen overflow-x-hidden bg-[#f7f4ed] text-[#10253f]">
-      <header className="absolute inset-x-0 top-0 z-20">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-6 md:px-10">
-          <div className="flex items-center gap-3 text-white">
-            <span className="grid h-10 w-10 place-items-center rounded-full border border-white/55 text-sm font-bold">UB</span>
-            <div className="leading-tight"><p className="text-sm font-bold">جامعة بنغازي</p><p className="text-[11px] text-white/70">افتتاح المرافق الجديدة</p></div>
+    <main lang={locale} dir={t.dir} className="min-h-screen overflow-x-hidden bg-[#f4f7fa] text-[#1c3149]">
+      <header className="sticky top-0 z-30 border-b border-[#dbe3ea] bg-white/95 backdrop-blur">
+        <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-4 px-5 md:px-10">
+          <div className="flex items-center gap-3">
+            <img src="/images/uob-logo.png" alt={t.brand} className="h-11 w-11 rounded-full object-contain" />
+            <div className="leading-tight"><p className="text-[15px] font-bold text-[#183a62]">{t.brand}</p><p className="mt-1 text-[11px] font-medium text-[#6c7d8e]">{t.unit}</p></div>
           </div>
-          <button onClick={() => scrollTo("program")} className="rounded-full border border-white/55 px-4 py-2 text-sm text-white transition hover:bg-white hover:text-[#10253f]">برنامج الافتتاح</button>
+          <nav className="hidden items-center gap-7 text-[13px] font-semibold text-[#52677d] md:flex">
+            <button onClick={() => scroll("overview")} className="transition hover:text-[#183a62]">{t.overview}</button>
+            <button onClick={() => scroll("gallery")} className="transition hover:text-[#183a62]">{t.gallery}</button>
+            <button onClick={() => scroll("program")} className="transition hover:text-[#183a62]">{t.program}</button>
+          </nav>
+          <button onClick={() => setLocale(locale === "ar" ? "en" : "ar")} className="rounded-md border border-[#cad6e2] px-3 py-2 text-[12px] font-bold text-[#183a62] transition hover:border-[#183a62]">{t.language}</button>
         </div>
       </header>
 
-      <section className="relative isolate min-h-[760px] overflow-hidden bg-[#071b33]">
-        <img src="/images/engineering-faculty.jpeg" alt="مبنى كلية الهندسة في جامعة بنغازي" className="absolute inset-0 -z-20 h-full w-full object-cover object-center" />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(4,19,38,.95)_0%,rgba(4,19,38,.66)_46%,rgba(4,19,38,.18)_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 -z-10 h-64 bg-gradient-to-t from-[#071b33] to-transparent" />
-        <div className="mx-auto flex min-h-[760px] max-w-7xl flex-col justify-end px-5 pb-16 pt-40 md:px-10 md:pb-24">
-          <div className="max-w-3xl">
-            <p className="mb-6 flex items-center gap-3 text-sm font-medium text-[#e8c66c]"><span className="h-px w-12 bg-[#e8c66c]" />مرحلة جديدة من المعرفة والتميز</p>
-            <h1 className="text-5xl font-black leading-[1.08] tracking-tight text-white md:text-7xl lg:text-8xl">افتتاح جامعة بنغازي<span className="mt-2 block text-[#e8c66c]">بحلّة جديدة</span></h1>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-white/82 md:text-xl">نحتفي بمرافق جامعية متجددة، وبمساحات تفتح الطريق أمام جيل يصنع المستقبل بالعلم والطموح.</p>
-            <div className="mt-10 flex flex-wrap gap-3"><button onClick={() => scrollTo("about")} className="rounded-full bg-[#e8c66c] px-7 py-4 text-sm font-bold text-[#10253f] transition hover:bg-white">اكتشف الافتتاح</button><button onClick={() => scrollTo("gallery")} className="rounded-full border border-white/60 px-7 py-4 text-sm font-bold text-white transition hover:bg-white hover:text-[#10253f]">شاهد المرافق</button></div>
-          </div>
-          <div className="mt-16 grid max-w-3xl grid-cols-3 border-t border-white/25 pt-6 text-white md:mt-24">{[["جامعة", "تتجدد"], ["معرفة", "تتقدم"], ["مستقبل", "يُبنى"]].map(([top, bottom]) => <p key={top} className="text-sm leading-6 text-white/75"><strong className="block text-xl text-white">{top}</strong>{bottom}</p>)}</div>
-        </div>
-      </section>
-
-      <section id="about" className="bg-[#f7f4ed] px-5 py-24 md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.85fr_1.15fr] lg:items-end"><div><p className="eyebrow">عن الافتتاح</p><h2 className="mt-5 text-4xl font-black leading-tight md:text-6xl">مساحات جديدة<br />لطموحات أكبر.</h2></div><p className="max-w-2xl text-lg leading-9 text-[#40536a]">تمثل هذه المناسبة محطة للاحتفاء بحرم جامعي يتطور باستمرار؛ مرافق أكثر جاهزية، وبيئة تعلّم تضع الطالب والبحث العلمي في قلب التجربة.</p></div>
-        <div className="mx-auto mt-16 grid max-w-7xl gap-px overflow-hidden rounded-[2rem] bg-[#d7d1c4] md:grid-cols-3">{highlights.map(([number, title, text]) => <article key={number} className="bg-[#f7f4ed] p-8 md:p-10"><span className="text-sm font-bold text-[#b48a2c]">{number}</span><h3 className="mt-12 text-2xl font-bold">{title}</h3><p className="mt-4 leading-8 text-[#526175]">{text}</p></article>)}</div>
-      </section>
-
-      <section id="gallery" className="bg-[#10253f] px-5 py-24 text-white md:px-10 md:py-32">
-        <div className="mx-auto max-w-7xl"><div className="flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="eyebrow text-[#e8c66c]">من قلب الحرم</p><h2 className="mt-5 text-4xl font-black leading-tight md:text-6xl">تفاصيل صُنعت<br />لتُلهم.</h2></div><p className="max-w-md text-lg leading-8 text-white/65">لقطات من المرافق الجديدة التي تجمع بين الهوية الأكاديمية والبيئة العصرية.</p></div>
-          <div className="mt-16 grid gap-5 md:grid-cols-12">
-            <figure className="group overflow-hidden rounded-[1.75rem] md:col-span-7"><img src="/images/central-lounge.jpeg" alt="الردهة المركزية في الحرم الجامعي" className="h-[420px] w-full object-cover transition duration-700 group-hover:scale-[1.03]" /><figcaption className="px-1 pt-4 text-sm text-white/60">مساحات لقاء وتواصل داخل الحرم الجامعي</figcaption></figure>
-            <figure className="group overflow-hidden rounded-[1.75rem] md:col-span-5"><img src="/images/night-campus.jpeg" alt="مباني الحرم الجامعي ليلًا" className="h-[420px] w-full object-cover transition duration-700 group-hover:scale-[1.03]" /><figcaption className="px-1 pt-4 text-sm text-white/60">حرم يضيء طريق المعرفة</figcaption></figure>
-            <figure className="group overflow-hidden rounded-[1.75rem] md:col-span-4"><img src="/images/main-corridor.jpeg" alt="ممر داخلي حديث في الجامعة" className="h-[320px] w-full object-cover transition duration-700 group-hover:scale-[1.03]" /></figure>
-            <figure className="group overflow-hidden rounded-[1.75rem] md:col-span-4"><img src="/images/campus-plaza.jpeg" alt="ساحات جامعة بنغازي" className="h-[320px] w-full object-cover transition duration-700 group-hover:scale-[1.03]" /></figure>
-            <figure className="group overflow-hidden rounded-[1.75rem] md:col-span-4"><img src="/images/evening-facade.jpeg" alt="واجهة مبنى جامعي في المساء" className="h-[320px] w-full object-cover transition duration-700 group-hover:scale-[1.03]" /></figure>
+      <section className="relative isolate min-h-[570px] overflow-hidden bg-[#183a62]">
+        <img src="/images/engineering-faculty.jpeg" alt={t.brand} className="absolute inset-0 -z-20 h-full w-full object-cover object-center" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(13,42,70,.88)_0%,rgba(13,42,70,.71)_48%,rgba(13,42,70,.23)_100%)]" />
+        <div className="mx-auto flex min-h-[570px] max-w-7xl items-end px-5 py-16 md:px-10 md:py-20">
+          <div className="max-w-2xl text-white">
+            <div className="mb-7 flex items-center gap-3 text-[12px] font-bold tracking-wide text-[#d8bd7a]"><img src="/images/uob-logo.png" alt="" className="h-8 w-8 rounded-full bg-white object-contain p-0.5" />{t.eyebrow}</div>
+            <h1 className="max-w-xl text-4xl font-bold leading-[1.25] md:text-5xl">{t.hero}</h1>
+            <p className="mt-5 max-w-xl text-[16px] leading-8 text-white/85">{t.heroText}</p>
+            <div className="mt-8 flex flex-wrap gap-3"><button onClick={() => scroll("gallery")} className="rounded-md bg-[#d8bd7a] px-5 py-3 text-[13px] font-bold text-[#173553] transition hover:bg-white">{t.action}</button><span className="rounded-md border border-white/30 px-4 py-3 text-[12px] text-white/80">{t.heroNote}</span></div>
           </div>
         </div>
       </section>
 
-      <section id="program" className="px-5 py-24 md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.75fr_1.25fr]"><div><p className="eyebrow">برنامج اليوم</p><h2 className="mt-5 text-4xl font-black leading-tight md:text-6xl">يوم يُحتفى<br />بالمستقبل.</h2><p className="mt-7 max-w-sm leading-8 text-[#526175]">رحلة افتتاحية تعرّف الحضور على ملامح المرحلة الجديدة داخل جامعة بنغازي.</p></div><ol className="divide-y divide-[#d7d1c4] border-t border-[#d7d1c4]">{moments.map(([title, text], index) => <li key={title} className="grid gap-5 py-7 sm:grid-cols-[80px_1fr]"><span className="text-xl font-bold text-[#b48a2c]">0{index + 1}</span><div><h3 className="text-2xl font-bold">{title}</h3><p className="mt-2 text-[#526175]">{text}</p></div></li>)}</ol></div>
+      <section id="overview" className="px-5 py-20 md:px-10 md:py-28">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.83fr_1.17fr] lg:items-end"><div><p className="eyebrow">{t.aboutTag}</p><h2 className="mt-4 text-3xl font-bold leading-tight text-[#183a62] md:text-4xl">{t.aboutTitle}</h2></div><p className="max-w-2xl text-[16px] leading-8 text-[#53677c]">{t.aboutText}</p></div>
+        <div className="mx-auto mt-14 grid max-w-7xl gap-5 md:grid-cols-3">{t.values.map(([title, text], i) => <article key={title} className="rounded-xl border border-[#dde6ee] bg-white p-7"><span className="text-[12px] font-bold text-[#b89548]">0{i + 1}</span><h3 className="mt-8 text-xl font-bold text-[#183a62]">{title}</h3><p className="mt-3 text-[14px] leading-7 text-[#617387]">{text}</p></article>)}</div>
       </section>
-      <section className="px-5 pb-24 md:px-10 md:pb-32"><div className="mx-auto grid max-w-7xl overflow-hidden rounded-[2.25rem] bg-[#e8c66c] md:grid-cols-2"><div className="p-9 md:p-16"><p className="text-sm font-bold text-[#705418]">جامعة بنغازي</p><h2 className="mt-6 text-4xl font-black leading-tight text-[#10253f] md:text-6xl">من هنا يبدأ<br />المشهد الجديد.</h2><button onClick={() => scrollTo("gallery")} className="mt-10 rounded-full bg-[#10253f] px-6 py-4 text-sm font-bold text-white transition hover:bg-white hover:text-[#10253f]">استعرض المرافق</button></div><img src="/images/campus-corridor.jpeg" alt="ممر من مرافق الجامعة الحديثة" className="h-[360px] w-full object-cover md:h-full" /></div></section>
-      <footer className="border-t border-[#d7d1c4] px-5 py-8 md:px-10"><div className="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-[#526175] sm:flex-row sm:items-center sm:justify-between"><p>جامعة بنغازي · افتتاح المرافق الجديدة</p><p>العلم يصنع الأثر</p></div></footer>
+
+      <section id="gallery" className="border-y border-[#dbe3ea] bg-white px-5 py-20 md:px-10 md:py-28">
+        <div className="mx-auto max-w-7xl"><div className="grid gap-8 lg:grid-cols-[.83fr_1.17fr] lg:items-end"><div><p className="eyebrow">{t.galleryTag}</p><h2 className="mt-4 text-3xl font-bold leading-tight text-[#183a62] md:text-4xl">{t.galleryTitle}</h2></div><p className="max-w-xl text-[16px] leading-8 text-[#53677c]">{t.galleryText}</p></div>
+          <div className="mt-14 grid gap-5 md:grid-cols-12">{photos.map(([src, caption, span], index) => <figure key={src} className={`overflow-hidden rounded-xl border border-[#e1e8ee] bg-[#f8fafc] ${span}`}><img src={src} alt={caption} className={`w-full object-cover ${index < 2 ? "h-[320px]" : "h-[250px]"}`} /><figcaption className="px-4 py-3 text-[12px] font-medium text-[#617387]">{caption}</figcaption></figure>)}</div>
+        </div>
+      </section>
+
+      <section id="program" className="px-5 py-20 md:px-10 md:py-28">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr]"><div><p className="eyebrow">{t.programTag}</p><h2 className="mt-4 text-3xl font-bold leading-tight text-[#183a62] md:text-4xl">{t.programTitle}</h2><p className="mt-5 max-w-sm text-[15px] leading-8 text-[#53677c]">{t.programText}</p></div><ol className="overflow-hidden rounded-xl border border-[#dbe3ea] bg-white">{t.moments.map(([title, text], index) => <li key={title} className="grid grid-cols-[46px_1fr] gap-4 border-b border-[#e5ebf0] p-6 last:border-0"><span className="grid h-8 w-8 place-items-center rounded-full bg-[#eff4f8] text-[12px] font-bold text-[#b89548]">0{index + 1}</span><div><h3 className="text-[16px] font-bold text-[#183a62]">{title}</h3><p className="mt-2 text-[14px] leading-7 text-[#617387]">{text}</p></div></li>)}</ol></div>
+      </section>
+
+      <section className="px-5 pb-20 md:px-10 md:pb-28"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-8 rounded-xl bg-[#183a62] px-7 py-10 text-white md:flex-row md:items-center md:px-12"><div className="flex items-center gap-4"><img src="/images/uob-logo.png" alt="" className="h-14 w-14 rounded-full bg-white object-contain p-1" /><div><p className="text-[13px] font-bold text-[#d8bd7a]">{t.closing}</p><h2 className="mt-2 text-2xl font-bold">{t.closingTitle}</h2></div></div><button onClick={() => scroll("overview")} className="w-fit rounded-md border border-white/40 px-5 py-3 text-[13px] font-bold transition hover:bg-white hover:text-[#183a62]">{t.overview}</button></div></section>
+      <footer className="border-t border-[#dbe3ea] bg-white px-5 py-7 text-center text-[12px] text-[#6c7d8e]"><p>{t.footer}</p><p className="mt-2 text-[10px] text-[#9aa8b6]">{t.logoCredit}</p></footer>
     </main>
   );
 }
