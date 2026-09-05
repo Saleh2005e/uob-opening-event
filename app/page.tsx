@@ -31,7 +31,10 @@ const content = {
   },
 } as const;
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";\nconst asset = (name: string) => `${basePath}/images/${name}`;\n\nexport default function Home() {
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const asset = (name: string) => `${basePath}/images/${name}`;
+
+export default function Home() {
   const [locale, setLocale] = useState<"ar" | "en">("ar");
   const t = content[locale];
   const scroll = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
