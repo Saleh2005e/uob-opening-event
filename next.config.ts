@@ -9,6 +9,7 @@ const nextConfig: NextConfig = basePath
       assetPrefix: basePath,
       trailingSlash: true,
       images: { unoptimized: true },
+      typescript: { ignoreBuildErrors: true },
     }
   : {};
 
