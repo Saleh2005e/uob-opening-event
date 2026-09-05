@@ -13,3 +13,4 @@ const nextConfig: NextConfig = basePath
   : {};
 
 export default nextConfig;
+// GitHub Pages deployment trigger.
