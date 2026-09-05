@@ -31,16 +31,16 @@ const content = {
   },
 } as const;
 
-export default function Home() {
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";\nconst asset = (name: string) => `${basePath}/images/${name}`;\n\nexport default function Home() {
   const [locale, setLocale] = useState<"ar" | "en">("ar");
   const t = content[locale];
   const scroll = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   const photos = [
-    ["/images/central-lounge.jpeg", t.captions[0], "md:col-span-7"],
-    ["/images/night-campus.jpeg", t.captions[1], "md:col-span-5"],
-    ["/images/main-corridor.jpeg", t.captions[2], "md:col-span-4"],
-    ["/images/campus-plaza.jpeg", t.captions[3], "md:col-span-4"],
-    ["/images/evening-facade.jpeg", t.captions[4], "md:col-span-4"],
+    [asset("central-lounge.jpeg"), t.captions[0], "md:col-span-7"],
+    [asset("night-campus.jpeg"), t.captions[1], "md:col-span-5"],
+    [asset("main-corridor.jpeg"), t.captions[2], "md:col-span-4"],
+    [asset("campus-plaza.jpeg"), t.captions[3], "md:col-span-4"],
+    [asset("evening-facade.jpeg"), t.captions[4], "md:col-span-4"],
   ] as const;
 
   return (
@@ -48,7 +48,7 @@ export default function Home() {
       <header className="sticky top-0 z-30 border-b border-[#dbe3ea] bg-white/95 backdrop-blur">
         <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-4 px-5 md:px-10">
           <div className="flex items-center gap-3">
-            <img src="/images/uob-logo.png" alt={t.brand} className="h-11 w-11 rounded-full object-contain" />
+            <img src={asset("uob-logo.png")} alt={t.brand} className="h-11 w-11 rounded-full object-contain" />
             <div className="leading-tight"><p className="text-[15px] font-bold text-[#183a62]">{t.brand}</p><p className="mt-1 text-[11px] font-medium text-[#6c7d8e]">{t.unit}</p></div>
           </div>
           <nav className="hidden items-center gap-7 text-[13px] font-semibold text-[#52677d] md:flex">
@@ -61,11 +61,11 @@ export default function Home() {
       </header>
 
       <section className="relative isolate min-h-[570px] overflow-hidden bg-[#183a62]">
-        <img src="/images/engineering-faculty.jpeg" alt={t.brand} className="absolute inset-0 -z-20 h-full w-full object-cover object-center" />
+        <img src={asset("engineering-faculty.jpeg")} alt={t.brand} className="absolute inset-0 -z-20 h-full w-full object-cover object-center" />
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(13,42,70,.88)_0%,rgba(13,42,70,.71)_48%,rgba(13,42,70,.23)_100%)]" />
         <div className="mx-auto flex min-h-[570px] max-w-7xl items-end px-5 py-16 md:px-10 md:py-20">
           <div className="max-w-2xl text-white">
-            <div className="mb-7 flex items-center gap-3 text-[12px] font-bold tracking-wide text-[#d8bd7a]"><img src="/images/uob-logo.png" alt="" className="h-8 w-8 rounded-full bg-white object-contain p-0.5" />{t.eyebrow}</div>
+            <div className="mb-7 flex items-center gap-3 text-[12px] font-bold tracking-wide text-[#d8bd7a]"><img src={asset("uob-logo.png")} alt="" className="h-8 w-8 rounded-full bg-white object-contain p-0.5" />{t.eyebrow}</div>
             <h1 className="max-w-xl text-4xl font-bold leading-[1.25] md:text-5xl">{t.hero}</h1>
             <p className="mt-5 max-w-xl text-[16px] leading-8 text-white/85">{t.heroText}</p>
             <div className="mt-8 flex flex-wrap gap-3"><button onClick={() => scroll("gallery")} className="rounded-md bg-[#d8bd7a] px-5 py-3 text-[13px] font-bold text-[#173553] transition hover:bg-white">{t.action}</button><span className="rounded-md border border-white/30 px-4 py-3 text-[12px] text-white/80">{t.heroNote}</span></div>
@@ -88,7 +88,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr]"><div><p className="eyebrow">{t.programTag}</p><h2 className="mt-4 text-3xl font-bold leading-tight text-[#183a62] md:text-4xl">{t.programTitle}</h2><p className="mt-5 max-w-sm text-[15px] leading-8 text-[#53677c]">{t.programText}</p></div><ol className="overflow-hidden rounded-xl border border-[#dbe3ea] bg-white">{t.moments.map(([title, text], index) => <li key={title} className="grid grid-cols-[46px_1fr] gap-4 border-b border-[#e5ebf0] p-6 last:border-0"><span className="grid h-8 w-8 place-items-center rounded-full bg-[#eff4f8] text-[12px] font-bold text-[#b89548]">0{index + 1}</span><div><h3 className="text-[16px] font-bold text-[#183a62]">{title}</h3><p className="mt-2 text-[14px] leading-7 text-[#617387]">{text}</p></div></li>)}</ol></div>
       </section>
 
-      <section className="px-5 pb-20 md:px-10 md:pb-28"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-8 rounded-xl bg-[#183a62] px-7 py-10 text-white md:flex-row md:items-center md:px-12"><div className="flex items-center gap-4"><img src="/images/uob-logo.png" alt="" className="h-14 w-14 rounded-full bg-white object-contain p-1" /><div><p className="text-[13px] font-bold text-[#d8bd7a]">{t.closing}</p><h2 className="mt-2 text-2xl font-bold">{t.closingTitle}</h2></div></div><button onClick={() => scroll("overview")} className="w-fit rounded-md border border-white/40 px-5 py-3 text-[13px] font-bold transition hover:bg-white hover:text-[#183a62]">{t.overview}</button></div></section>
+      <section className="px-5 pb-20 md:px-10 md:pb-28"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-8 rounded-xl bg-[#183a62] px-7 py-10 text-white md:flex-row md:items-center md:px-12"><div className="flex items-center gap-4"><img src={asset("uob-logo.png")} alt="" className="h-14 w-14 rounded-full bg-white object-contain p-1" /><div><p className="text-[13px] font-bold text-[#d8bd7a]">{t.closing}</p><h2 className="mt-2 text-2xl font-bold">{t.closingTitle}</h2></div></div><button onClick={() => scroll("overview")} className="w-fit rounded-md border border-white/40 px-5 py-3 text-[13px] font-bold transition hover:bg-white hover:text-[#183a62]">{t.overview}</button></div></section>
       <footer className="border-t border-[#dbe3ea] bg-white px-5 py-7 text-center text-[12px] text-[#6c7d8e]"><p>{t.footer}</p><p className="mt-2 text-[10px] text-[#9aa8b6]">{t.logoCredit}</p></footer>
     </main>
   );
